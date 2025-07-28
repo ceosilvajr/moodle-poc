@@ -1,0 +1,32 @@
+meta {
+  name: Link Moodle Account
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/api/v1/moodle/auth/link
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{api_token}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "moodle_username": "{{moodle_username}}",
+      "moodle_password": "{{moodle_password}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Link a mobile app user to their Moodle account by providing Moodle credentials. This will obtain and store a Moodle authentication token.
+}

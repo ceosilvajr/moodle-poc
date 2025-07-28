@@ -1,0 +1,25 @@
+meta {
+  name: Get Authenticated User
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/api/user
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{api_token}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Get information about the currently authenticated user. This endpoint requires a valid Bearer token.
+}

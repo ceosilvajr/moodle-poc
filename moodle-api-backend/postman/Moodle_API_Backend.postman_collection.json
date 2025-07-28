@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "moodle-api-backend-collection",
+		"name": "Moodle API Backend",
+		"description": "Complete API collection for testing the Laravel Moodle API Backend. This collection includes all endpoints for authentication, course management, and certificate retrieval.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "moodle-api-backend"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Authenticated User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{api_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						},
+						"description": "Get information about the currently authenticated user. This endpoint requires a valid Bearer token."
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication-related endpoints for user management."
+		},
+		{
+			"name": "Moodle Account Management",
+			"item": [
+				{
+					"name": "Link Moodle Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{api_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"moodle_username\": \"{{moodle_username}}\",\n    \"moodle_password\": \"{{moodle_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/moodle/auth/link",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"moodle",
+								"auth",
+								"link"
+							]
+						},
+						"description": "Link a mobile app user to their Moodle account by providing Moodle credentials. This will obtain and store a Moodle authentication token."
+					},
+					"response": []
+				},
+				{
+					"name": "Unlink Moodle Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{api_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/moodle/auth/unlink",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"moodle",
+								"auth",
+								"unlink"
+							]
+						},
+						"description": "Unlink a mobile app user's Moodle account by removing the stored authentication token."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing the connection between mobile app users and their Moodle accounts."
+		},
+		{
+			"name": "Course Management",
+			"item": [
+				{
+					"name": "Get Enrolled Courses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{api_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/moodle/courses/enrolled",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"moodle",
+								"courses",
+								"enrolled"
+							]
+						},
+						"description": "Fetch courses that the linked Moodle user is enrolled in, including completion status for each course."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Courses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{api_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/moodle/courses/available",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"moodle",
+								"courses",
+								"available"
+							]
+						},
+						"description": "Fetch all courses available on the Moodle site that the linked user has permission to browse."
+					},
+					"response": []
+				},
+				{
+					"name": "Enroll in Course",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{api_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/moodle/courses/{{course_id}}/enroll",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"moodle",
+								"courses",
+								"{{course_id}}",
+								"enroll"
+							]
+						},
+						"description": "Attempt to enroll the linked Moodle user in a specific course (if self-enrollment is enabled on the Moodle site)."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing course enrollment and retrieving course information."
+		},
+		{
+			"name": "Certificates",
+			"item": [
+				{
+					"name": "Get User Certificates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{api_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/moodle/certificates",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"moodle",
+								"certificates"
+							]
+						},
+						"description": "Fetch all available certificates for the linked Moodle user from completed courses."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for retrieving user certificates from completed courses."
+		},
+		{
+			"name": "Testing",
+			"item": [
+				{
+					"name": "Test API Connection",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/test",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"test"
+							]
+						},
+						"description": "Test endpoint to verify the API is working correctly. This endpoint does not require authentication."
+					},
+					"response": []
+				}
+			],
+			"description": "Testing endpoints to verify API functionality."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "api_token",
+			"value": "1|t58oT6exgZFTlBaQVS1NliPUaaAVVg0cfFybJbKN26d10f53",
+			"type": "string"
+		},
+		{
+			"key": "moodle_username",
+			"value": "your_moodle_username",
+			"type": "string"
+		},
+		{
+			"key": "moodle_password",
+			"value": "your_moodle_password",
+			"type": "string"
+		},
+		{
+			"key": "course_id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+} 

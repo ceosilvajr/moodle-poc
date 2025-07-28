@@ -1,0 +1,25 @@
+meta {
+  name: Get Available Courses
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/api/v1/moodle/courses/available
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{api_token}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Fetch all courses available on the Moodle site that the linked user has permission to browse.
+}

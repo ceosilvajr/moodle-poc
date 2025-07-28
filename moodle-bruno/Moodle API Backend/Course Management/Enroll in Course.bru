@@ -1,0 +1,25 @@
+meta {
+  name: Enroll in Course
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/api/v1/moodle/courses/{{course_id}}/enroll
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{api_token}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Attempt to enroll the linked Moodle user in a specific course (if self-enrollment is enabled on the Moodle site).
+}

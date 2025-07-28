@@ -1,0 +1,25 @@
+meta {
+  name: Get User Certificates
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/api/v1/moodle/certificates
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{api_token}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Fetch all available certificates for the linked Moodle user from completed courses.
+}

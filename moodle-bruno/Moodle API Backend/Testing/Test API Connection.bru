@@ -1,0 +1,23 @@
+meta {
+  name: Test API Connection
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/api/test
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Test endpoint to verify the API is working correctly. This endpoint does not require authentication.
+}
