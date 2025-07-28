@@ -1,0 +1,101 @@
+meta {
+  name: Moodle API Backend
+  type: http
+  seq: 1
+}
+
+# Authentication
+post {
+  meta {
+    name: Link Moodle Account
+    seq: 1
+  }
+  url: {{base_url}}/api/v1/moodle/auth/link
+  body: json {
+    {
+      "moodle_username": "{{moodle_username}}",
+      "moodle_password": "{{moodle_password}}"
+    }
+  }
+  auth: bearer {
+    token: {{api_token}}
+  }
+}
+
+post {
+  meta {
+    name: Unlink Moodle Account
+    seq: 2
+  }
+  url: {{base_url}}/api/v1/moodle/auth/unlink
+  auth: bearer {
+    token: {{api_token}}
+  }
+}
+
+# User Management
+get {
+  meta {
+    name: Get User Info
+    seq: 3
+  }
+  url: {{base_url}}/api/user
+  auth: bearer {
+    token: {{api_token}}
+  }
+}
+
+# Course Management
+get {
+  meta {
+    name: Get Enrolled Courses
+    seq: 4
+  }
+  url: {{base_url}}/api/v1/moodle/courses/enrolled
+  auth: bearer {
+    token: {{api_token}}
+  }
+}
+
+get {
+  meta {
+    name: Get Available Courses
+    seq: 5
+  }
+  url: {{base_url}}/api/v1/moodle/courses/available
+  auth: bearer {
+    token: {{api_token}}
+  }
+}
+
+post {
+  meta {
+    name: Enroll in Course
+    seq: 6
+  }
+  url: {{base_url}}/api/v1/moodle/courses/{{course_id}}/enroll
+  auth: bearer {
+    token: {{api_token}}
+  }
+}
+
+# Certificates
+get {
+  meta {
+    name: Get Certificates
+    seq: 7
+  }
+  url: {{base_url}}/api/v1/moodle/certificates
+  auth: bearer {
+    token: {{api_token}}
+  }
+}
+
+# Testing
+get {
+  meta {
+    name: Test API
+    seq: 8
+  }
+  url: {{base_url}}/test
+} 

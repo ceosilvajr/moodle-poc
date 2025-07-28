@@ -1,0 +1,7 @@
+vars {
+  base_url: http://localhost:8000
+  api_token: 9|Iv2EljY07X04jgpA6P5VO0Px0tJut3JWQQE7bXab30b87886
+  moodle_username: student
+  moodle_password: moodle
+  course_id: 72
+} 

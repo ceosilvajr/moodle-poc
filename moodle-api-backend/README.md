@@ -1,204 +1,209 @@
 # Moodle API Backend
 
-A Laravel-based API backend that provides integration with Moodle Learning Management System. This backend allows mobile applications to interact with Moodle through a RESTful API, handling authentication, course management, and certificate retrieval.
+A Laravel-based REST API backend that integrates with Moodle Learning Management System, providing seamless access to Moodle courses, authentication, and certificates through a mobile-friendly API.
 
-## Features
+## 🚀 Features
 
-- **Moodle Account Linking**: Link mobile app users to their Moodle accounts
-- **Course Management**: Fetch enrolled courses, available courses, and enroll in new courses
-- **Certificate Retrieval**: Get user certificates from completed courses
-- **Docker Support**: Complete Docker environment with PHP-FPM, Nginx, and MySQL
-- **API Authentication**: Laravel Sanctum for secure API access
+- **Moodle Integration**: Connect to any Moodle instance via web services
+- **User Authentication**: Link mobile users with Moodle accounts
+- **Course Management**: Access enrolled and available courses
+- **Certificate Management**: Retrieve user certificates
+- **RESTful API**: Clean, consistent API endpoints
+- **Bruno Collection**: Complete API testing suite included
 
-## Prerequisites
+## 📋 Prerequisites
 
-- Docker and Docker Compose
-- PHP 8.2+ (for local development)
-- Composer (for local development)
-- Postman (for API testing)
+- **PHP 8.2+**
+- **Composer**
+- **SQLite** (for local development)
 
-## Quick Start with Docker
+## 🛠️ Installation & Setup
 
-1. **Clone and navigate to the project**:
-   ```bash
-   cd moodle-api-backend
-   ```
+### 1. Clone and Install Dependencies
 
-2. **Configure environment variables**:
-   ```bash
-   cp .env.example .env
-   ```
-   
-   Update the `.env` file with your Moodle configuration:
-   ```env
-   MOODLE_BASE_URL=https://your-moodle-instance.com
-   MOODLE_MOBILE_SERVICE_SHORTNAME=moodle_mobile_app
-   DB_DATABASE=moodle_api_db
-   DB_USERNAME=moodle_user
-   DB_PASSWORD=moodle_password
-   DB_ROOT_PASSWORD=moodle_root_password
-   ```
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd moodle-api-backend
 
-3. **Start the Docker containers**:
-   ```bash
-   docker-compose up -d
-   ```
-
-4. **Install dependencies and run migrations**:
-   ```bash
-   docker-compose exec app composer install
-   docker-compose exec app php artisan migrate
-   ```
-
-5. **Generate application key**:
-   ```bash
-   docker-compose exec app php artisan key:generate
-   ```
-
-6. **Access the API**:
-   - API Base URL: `http://localhost:8000/api`
-   - Database: `localhost:3307` (MySQL)
-
-## API Endpoints
-
-### Authentication Required
-All endpoints require authentication via Laravel Sanctum. Include the Bearer token in the Authorization header.
-
-### Moodle Account Management
-
-#### Link Moodle Account
-```http
-POST /api/v1/moodle/auth/link
-Content-Type: application/json
-Authorization: Bearer {token}
-
-{
-    "moodle_username": "user@example.com",
-    "moodle_password": "password"
-}
+# Install PHP dependencies
+composer install
 ```
 
-#### Unlink Moodle Account
-```http
-POST /api/v1/moodle/auth/unlink
-Authorization: Bearer {token}
+### 2. Environment Configuration
+
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
 ```
 
-### Course Management
+### 3. Configure Moodle Settings
 
-#### Get Enrolled Courses
-```http
-GET /api/v1/moodle/courses/enrolled
-Authorization: Bearer {token}
+Edit `.env` file and set your Moodle configuration:
+
+```env
+# Moodle Configuration
+MOODLE_BASE_URL=https://your-moodle-instance.com
+MOODLE_MOBILE_SERVICE_SHORTNAME=moodle_mobile_app
 ```
 
-#### Get Available Courses
-```http
-GET /api/v1/moodle/courses/available
-Authorization: Bearer {token}
+### 4. Database Setup
+
+```bash
+# Create SQLite database
+touch database/database.sqlite
+
+# Run migrations
+php artisan migrate
 ```
 
-#### Enroll in Course
-```http
-POST /api/v1/moodle/courses/{course_id}/enroll
-Authorization: Bearer {token}
+### 5. Start the Development Server
+
+```bash
+# Start Laravel development server
+php artisan serve
 ```
+
+The API will be available at: `http://localhost:8000`
+
+## 🧪 API Testing
+
+For API testing documentation and collections, see the root directory:
+- **Bruno Collection**: `../api-documentation/bruno/`
+- **Postman Collection**: `../api-documentation/postman/`
+- **Main Documentation**: `../README.md`
+
+## 📚 API Endpoints
+
+### Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/moodle/auth/link` | Link mobile user with Moodle account |
+| `POST` | `/api/v1/moodle/auth/unlink` | Unlink Moodle account |
+
+### Courses
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/v1/moodle/courses/enrolled` | Get user's enrolled courses |
+| `GET` | `/api/v1/moodle/courses/available` | Get available courses (with fallback) |
+| `POST` | `/api/v1/moodle/courses/{courseId}/enroll` | Enroll user in a course |
 
 ### Certificates
 
-#### Get User Certificates
-```http
-GET /api/v1/moodle/certificates
-Authorization: Bearer {token}
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/v1/moodle/certificates` | Get user's certificates |
+
+### User Management
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/user` | Get authenticated user info |
+
+## 🔧 Testing Examples
+
+### Link Moodle Account
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/moodle/auth/link" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "moodle_username": "student",
+    "moodle_password": "moodle"
+  }'
 ```
 
-## Local Development Setup
+### Get Enrolled Courses
 
-1. **Install PHP dependencies**:
-   ```bash
-   composer install
-   ```
+```bash
+curl -X GET "http://localhost:8000/api/v1/moodle/courses/enrolled" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+```
 
-2. **Configure environment**:
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
+### Get Available Courses
 
-3. **Set up database**:
-   ```bash
-   php artisan migrate
-   ```
+```bash
+curl -X GET "http://localhost:8000/api/v1/moodle/courses/available" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+```
 
-4. **Start development server**:
+## 🗄️ Database Access
+
+### Using Laravel Tinker
+
+```bash
+# Access the database
+php artisan tinker
+
+# View all users
+User::all();
+
+# View Moodle tokens
+UserMoodleToken::all();
+
+# Count API tokens
+User::first()->tokens()->count();
+```
+
+### Direct SQLite Access
+
+```bash
+# Access SQLite database directly
+sqlite3 database/database.sqlite
+
+# View tables
+.tables
+
+# View users
+SELECT * FROM users;
+
+# View Moodle tokens
+SELECT * FROM user_moodle_tokens;
+```
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+1. **"CSRF token mismatch"**
+   - Ensure you're using the correct API endpoints (not web routes)
+   - Check that your Authorization header is properly set
+
+2. **"Moodle account not linked"**
+   - First link your account using `/api/v1/moodle/auth/link`
+   - Verify Moodle credentials are correct
+
+3. **"Permission denied" for courses**
+   - This is normal for demo accounts
+   - The API will fallback to enrolled courses automatically
+
+4. **Server not starting**
    ```bash
+   # Check if port 8000 is in use
+   lsof -i :8000
+   
+   # Kill existing process
+   pkill -f "php artisan serve"
+   
+   # Start server
    php artisan serve
    ```
 
-## Docker Services
+### Debug Mode
 
-- **app**: PHP-FPM 8.2 with Laravel application
-- **nginx**: Nginx web server (port 8000)
-- **db**: MySQL 8.0 database (port 3307)
+Enable debug mode in `.env`:
+```env
+APP_DEBUG=true
+APP_ENV=local
+```
 
-## Configuration
-
-### Moodle Setup
-
-1. **Enable Web Services** in your Moodle instance
-2. **Create a Mobile Service** with shortname `moodle_mobile_app`
-3. **Enable required Web Service functions**:
-   - `core_webservice_get_site_info`
-   - `core_enrol_get_users_courses`
-   - `core_course_get_courses`
-   - `core_course_get_contents`
-   - `core_completion_get_course_completion_status`
-   - `core_completion_get_activities_completion_status`
-   - `enrol_self_enrol_user`
-
-### Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `MOODLE_BASE_URL` | Your Moodle instance URL | `https://qa.moodledemo.net` |
-| `MOODLE_MOBILE_SERVICE_SHORTNAME` | Moodle mobile service shortname | `moodle_mobile_app` |
-| `DB_DATABASE` | Database name | `moodle_api_db` |
-| `DB_USERNAME` | Database username | `moodle_user` |
-| `DB_PASSWORD` | Database password | `moodle_password` |
-
-## API Testing with Postman
-
-We provide a complete Postman testing suite to help you test all API endpoints.
-
-### Quick Start for Testing
-
-1. **Start the Laravel server**:
-   ```bash
-   php artisan serve
-   ```
-
-2. **Run the automated setup script**:
-   ```bash
-   ./postman/setup-postman-testing.sh
-   ```
-
-3. **Import the Postman collection**:
-   - Open Postman
-   - Import `postman/Moodle_API_Backend.postman_collection.json`
-   - Set up environment variables as prompted
-
-### Postman Files
-
-| File | Description |
-|------|-------------|
-| `postman/Moodle_API_Backend.postman_collection.json` | Complete API collection |
-| `postman/POSTMAN_DOCUMENTATION.md` | Comprehensive testing guide |
-| `postman/setup-postman-testing.sh` | Automated setup script |
-| `postman/README.md` | Postman folder overview |
-
-For detailed testing instructions, see `postman/POSTMAN_DOCUMENTATION.md`.
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 moodle-api-backend/
@@ -211,60 +216,74 @@ moodle-api-backend/
 │   │   └── UserMoodleToken.php
 │   └── Services/
 │       └── MoodleApiService.php
-├── database/migrations/
-│   └── create_user_moodle_tokens_table.php
-├── postman/
-│   ├── Moodle_API_Backend.postman_collection.json
-│   ├── POSTMAN_DOCUMENTATION.md
-│   ├── setup-postman-testing.sh
-│   ├── POSTMAN_FILES.md
-│   └── README.md
+├── database/
+│   ├── migrations/
+│   └── database.sqlite
 ├── routes/
 │   └── api.php
-├── docker-compose.yml
-├── Dockerfile
-└── nginx/
-    └── default.conf
+├── .env.example
+├── composer.json
+└── README.md
 ```
 
-## Troubleshooting
+## 🔄 Development Workflow
 
-### Common Issues
+1. **Start Development**:
+   ```bash
+   php artisan serve
+   ```
 
-1. **Moodle API Connection Failed**:
-   - Verify `MOODLE_BASE_URL` is correct
-   - Check if Moodle Web Services are enabled
-   - Ensure the mobile service is properly configured
+2. **Test with Bruno**:
+   - Open Bruno
+   - Import collection
+   - Set environment variables
+   - Run tests
 
-2. **Database Connection Issues**:
-   - Verify Docker containers are running
-   - Check database credentials in `.env`
-   - Ensure database port 3307 is available
+3. **Database Changes**:
+   ```bash
+   php artisan make:migration create_new_table
+   php artisan migrate
+   ```
 
-3. **Permission Issues**:
-   - Make sure storage and bootstrap/cache directories are writable
-   - Run `chmod -R 775 storage bootstrap/cache` if needed
+4. **API Changes**:
+   - Modify controllers in `app/Http/Controllers/`
+   - Update routes in `routes/api.php`
+   - Test with Bruno collection
 
-### Logs
+## 📝 API Response Format
 
-View application logs:
-```bash
-docker-compose logs app
+All API responses follow this format:
+
+```json
+{
+  "status": "success|error",
+  "message": "Human readable message",
+  "data": {}, // Optional data payload
+  "error": "Error details if applicable"
+}
 ```
 
-View Nginx logs:
-```bash
-docker-compose logs nginx
-```
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests if applicable
+4. Test with Bruno collection
 5. Submit a pull request
 
-## License
+## 📄 License
 
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For issues and questions:
+- Check the troubleshooting section
+- Review the Bruno collection documentation
+- Open an issue in the repository
+
+---
+
+**Happy Testing! 🚀**
+
+Use the Bruno collection to explore all available endpoints and test your Moodle integration thoroughly.

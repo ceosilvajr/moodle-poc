@@ -6,21 +6,21 @@ This document lists all the Postman-related files created for testing the Moodle
 
 | File | Purpose | Description |
 |------|---------|-------------|
-| `postman/Moodle_API_Backend.postman_collection.json` | Postman Collection | Complete API collection with all endpoints |
-| `postman/POSTMAN_DOCUMENTATION.md` | Documentation | Comprehensive testing guide and troubleshooting |
-| `postman/setup-postman-testing.sh` | Setup Script | Automated setup script for Postman testing |
-| `test-api.sh` | Testing Script | Basic API testing script (created earlier) |
+| `api-documentation/postman/Moodle_API_Backend.postman_collection.json` | Postman Collection | Complete API collection with all endpoints |
+| `api-documentation/postman/POSTMAN_DOCUMENTATION.md` | Documentation | Comprehensive testing guide and troubleshooting |
+| `api-documentation/postman/setup-postman-testing.sh` | Setup Script | Automated setup script for Postman testing |
+| `moodle-api-backend/test-api.sh` | Testing Script | Basic API testing script (created earlier) |
 
 ## 🚀 Quick Start
 
 ### Option 1: Automated Setup
 ```bash
-./postman/setup-postman-testing.sh
+./api-documentation/postman/setup-postman-testing.sh
 ```
 
 ### Option 2: Manual Setup
-1. Import `postman/Moodle_API_Backend.postman_collection.json` into Postman
-2. Follow instructions in `postman/POSTMAN_DOCUMENTATION.md`
+1. Import `api-documentation/postman/Moodle_API_Backend.postman_collection.json` into Postman
+2. Follow instructions in `api-documentation/postman/POSTMAN_DOCUMENTATION.md`
 3. Set up environment variables as described
 
 ## 📋 File Details

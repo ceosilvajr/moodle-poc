@@ -7,16 +7,19 @@ echo "🚀 Moodle API Backend - Postman Testing Setup"
 echo "=============================================="
 echo ""
 
-# Check if we're in the right directory (either in postman folder or root)
-if [ -f "artisan" ]; then
+# Check if we're in the right directory
+if [ -f "moodle-api-backend/artisan" ]; then
+    echo "✅ Found Laravel project in: moodle-api-backend/"
+    cd moodle-api-backend
+elif [ -f "artisan" ]; then
     echo "✅ Found Laravel project in: $(pwd)"
-elif [ -f "../artisan" ]; then
-    echo "✅ Found Laravel project in: $(dirname $(pwd))"
-    cd ..
+elif [ -f "../moodle-api-backend/artisan" ]; then
+    echo "✅ Found Laravel project in: ../moodle-api-backend/"
+    cd ../moodle-api-backend
 else
-    echo "❌ Error: Please run this script from the moodle-api-backend directory or postman subdirectory"
+    echo "❌ Error: Please run this script from the tesda-moodle-backend directory"
     echo "   Current directory: $(pwd)"
-    echo "   Expected: moodle-api-backend directory with artisan file"
+    echo "   Expected: tesda-moodle-backend directory with moodle-api-backend subdirectory"
     exit 1
 fi
 echo ""
@@ -97,7 +100,7 @@ echo ""
 echo "1. 📥 Import the Postman collection:"
 echo "   - Open Postman"
 echo "   - Click 'Import'"
-echo "   - Select 'postman/Moodle_API_Backend.postman_collection.json'"
+echo "   - Select 'api-documentation/postman/Moodle_API_Backend.postman_collection.json'"
 echo ""
 echo "2. 🔧 Set up environment variables:"
 echo "   - Click the Environment dropdown (top right)"
@@ -126,13 +129,13 @@ echo "   - Continue with other endpoints"
 echo ""
 
 # Check if Postman collection file exists
-if [ -f "postman/Moodle_API_Backend.postman_collection.json" ]; then
-    echo "✅ Postman collection file found: postman/Moodle_API_Backend.postman_collection.json"
-elif [ -f "Moodle_API_Backend.postman_collection.json" ]; then
-    echo "✅ Postman collection file found: Moodle_API_Backend.postman_collection.json"
+if [ -f "../api-documentation/postman/Moodle_API_Backend.postman_collection.json" ]; then
+    echo "✅ Postman collection file found: ../api-documentation/postman/Moodle_API_Backend.postman_collection.json"
+elif [ -f "api-documentation/postman/Moodle_API_Backend.postman_collection.json" ]; then
+    echo "✅ Postman collection file found: api-documentation/postman/Moodle_API_Backend.postman_collection.json"
 else
     echo "❌ Postman collection file not found"
-    echo "   Please ensure Moodle_API_Backend.postman_collection.json exists in the postman directory"
+    echo "   Please ensure Moodle_API_Backend.postman_collection.json exists in the api-documentation/postman directory"
 fi
 
 echo ""
