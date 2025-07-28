@@ -1,4 +1,4 @@
-# TESDA Moodle API Backend
+# Moodle API Backend
 
 A comprehensive Laravel-based REST API backend that integrates with Moodle Learning Management System, providing seamless access to Moodle courses, authentication, and certificates through a mobile-friendly API.
 
@@ -22,7 +22,7 @@ A comprehensive Laravel-based REST API backend that integrates with Moodle Learn
 ## 🏗️ Project Structure
 
 ```
-tesda-moodle-backend/
+moodle-backend/
 ├── moodle-api-backend/           # Laravel application
 │   ├── app/                     # Application code
 │   ├── database/                # Database files
@@ -41,7 +41,7 @@ tesda-moodle-backend/
 ```bash
 # Clone the repository
 git clone <your-repo-url>
-cd tesda-moodle-backend
+cd moodle-backend
 
 # Navigate to the Laravel application
 cd moodle-api-backend

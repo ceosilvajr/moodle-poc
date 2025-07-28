@@ -17,9 +17,9 @@ elif [ -f "../moodle-api-backend/artisan" ]; then
     echo "✅ Found Laravel project in: ../moodle-api-backend/"
     cd ../moodle-api-backend
 else
-    echo "❌ Error: Please run this script from the tesda-moodle-backend directory"
+    echo "❌ Error: Please run this script from the moodle-backend directory"
     echo "   Current directory: $(pwd)"
-    echo "   Expected: tesda-moodle-backend directory with moodle-api-backend subdirectory"
+    echo "   Expected: moodle-backend directory with moodle-api-backend subdirectory"
     exit 1
 fi
 echo ""
